@@ -5,4 +5,11 @@
 //     Divide by two.
 //     Example
 // math(65, 60, 75, 55, 60, 63, 64, 45) === 86
-export function math(...numbers) {}
+export function math(...numbers) {
+    let processedNumber = (Math.sqrt(numbers.map((num) => {
+        return num*num;
+    }).reduce((value, currentValue) => {
+        return value + currentValue;
+    }))/2).floor();
+    return processedNumber;
+}
