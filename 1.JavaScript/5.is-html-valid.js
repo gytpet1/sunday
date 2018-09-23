@@ -11,4 +11,21 @@
 // "<div>"     =>  False
 // "<div><div><span></span></div></h1>" =>  False
 
-function isHTMLValid(html) {}
+function isHTMLValid(html) {
+    const htmlTags = html.match(/<\/?([a-z])\w+>/g)
+    console.log(validateRecursive(htmlTags))
+}
+
+function validateRecursive(tags) {
+	if(tags.length == 0) return 0
+  let popped = tags.pop()
+  let shifted = tags.shift()
+  console.log(shifted, popped)
+  const matchReg = /[a-z]\w+/g
+  if(shifted.match(matchReg)[0] == popped.match(matchReg)[0]){
+  	validateRecursive(tags)
+  	return true
+  } else return false
+}
+
+isHTMLValid("<div><span></h1></div>")
