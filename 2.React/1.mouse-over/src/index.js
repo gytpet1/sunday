@@ -17,11 +17,12 @@ class Card extends React.Component {
   };
 
   render() {
+    let activeClassName = this.state.mouseOnCard ? "Active" : ""
     return (
       <div
         onMouseEnter={this.mouseEnter}
         onMouseLeave={this.mouseLeave}
-        className={`Card ${this.state.mouseOnCard ? "Active" : ""}`}
+        className={`Card ${activeClassName}`}
       />
     );
   }
