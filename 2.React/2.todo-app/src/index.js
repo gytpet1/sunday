@@ -59,5 +59,17 @@ function App() {
   return <Tasks tasks={someTasks}/>;
 }
 
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      tasks: []
+    }
+  }
+  addTask = () => {
+    const newState = {}
+    this.set
+  }
+}
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App/>, rootElement);
