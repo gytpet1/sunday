@@ -12,20 +12,25 @@
 // "<div><div><span></span></div></h1>" =>  False
 
 function isHTMLValid(html) {
-    const htmlTags = html.match(/<\/?([a-z])\w+>/g)
-    console.log(validateRecursive(htmlTags))
+  const htmlTags = html.match(/<\/?([a-z])\w+>/g)
+  const length = htmlTags.length
+  const openingTag = /<[a-z]\w+\>/g
+  const closingTag = /<\/[a-z]\w+\>/g
+  let tagsDepth = []
+  let isValid = false
+  for(let i = 0; i < length; i++) {
+    if(htmlTags[i].match(openingTag)) {
+      tagsDepth.push(htmlTags[i]);
+      /* console.log(tagsDepth) */
+      isValid = false
+    } else if (htmlTags[i].match(closingTag)) {
+      if(tagsDepth[tagsDepth.length-1].match(/[a-z]\w+/g)[0] == htmlTags[i].match(/[a-z]\w+/g)[0]) {
+         isValid = true
+        tagsDepth.pop()
+      } else isValid = false
+    }
+  }
+  return isValid
 }
 
-function validateRecursive(tags) {
-	if(tags.length == 0) return 0
-  let popped = tags.pop()
-  let shifted = tags.shift()
-  console.log(shifted, popped)
-  const matchReg = /[a-z]\w+/g
-  if(shifted.match(matchReg)[0] == popped.match(matchReg)[0]){
-  	validateRecursive(tags)
-  	return true
-  } else return false
-}
-
-isHTMLValid("<div><span></h1></div>")
+console.log(isHTMLValid("<div><span></span><div><h1></h1></div></div>"))
