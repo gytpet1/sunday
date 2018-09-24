@@ -12,22 +12,24 @@
 // "<div><div><span></span></div></h1>" =>  False
 
 function isHTMLValid(html) {
-  const htmlTags = html.match(/<\/?([a-z])\w+>/g)
-  const length = htmlTags.length
-  const openingTag = /<[a-z]\w+\>/g
-  const closingTag = /<\/[a-z]\w+\>/g
-  let tagsDepth = []
-  let isValid = false
+  const 
+    htmlTags = html.match(/<\/?([a-z])\w+>/g),
+    length = htmlTags.length,
+    openingTag = /<[a-z]\w+\>/g,
+    closingTag = /<\/[a-z]\w+\>/g
+  let 
+    tagsDepth = [],
+    isValid = false
   for(let i = 0; i < length; i++) {
     if(htmlTags[i].match(openingTag)) {
       tagsDepth.push(htmlTags[i]);
       /* console.log(tagsDepth) */
       isValid = false
     } else if (htmlTags[i].match(closingTag)) {
-      if(tagsDepth[tagsDepth.length-1].match(/[a-z]\w+/g)[0] == htmlTags[i].match(/[a-z]\w+/g)[0]) {
-         isValid = true
-        tagsDepth.pop()
-      } else isValid = false
+        if(tagsDepth[tagsDepth.length-1].match(/[a-z]\w+/g)[0] == htmlTags[i].match(/[a-z]\w+/g)[0]) {
+          isValid = true
+          tagsDepth.pop()
+        } else isValid = false
     }
   }
   return isValid
