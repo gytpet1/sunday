@@ -6,5 +6,5 @@
 // number([1, 2, 3, 4, 5]) => 3
 
 export function number(numbers) {
-    return Math.floor((numbers.reduce((accumulator, currentValue) => accumulator + currentValue))/numbers.length)
+    return Math.round((numbers.reduce((accumulator, currentValue) => accumulator + currentValue))/numbers.length)
 }
