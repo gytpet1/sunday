@@ -20,17 +20,20 @@ class Tasks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: this.props.tasks.filter(task => !task.done),
-      completed: this.props.tasks.filter(task => task.done),
-      total: this.props.tasks.length
+      active: [],
+      completed: [],
+      total: 0
     };
   }
   render() {
+    let active = this.props.tasks.filter(task => !task.done),
+        completed = this.props.tasks.filter(task => task.done), 
+        total = this.props.tasks.length
     return (
       <div>
-        {this.state.active.map(task => <Active>{task.title}</Active>)}
-        {this.state.completed.map(task => <Done>{task.title}</Done>)}
-        <Total>Total tasks: {this.state.total}</Total>
+        {active.map(task => <Active>{task.title}</Active>)}
+        {completed.map(task => <Done>{task.title}</Done>)}
+        <Total>Total tasks: {total}</Total>
       </div>
     );
   }
@@ -49,7 +52,6 @@ class App extends React.Component {
     this.addTask = this.addTask.bind(this)
   }
   addTask = () => {
-    console.log(this.state)
     const defaultTask = {
       title: 'new task', 
       done: false
