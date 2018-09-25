@@ -24,24 +24,10 @@ class Tasks extends React.Component {
       completed: this.props.tasks.filter(task => task.done),
       total: this.props.tasks.length
     };
-
-    this.addTask = this.addTask.bind(this)
   }
-
-  addTask() {
-    this.props.tasks.push({title: 'new task', done: false});
-    this.state = {
-      active: this.props.tasks.filter(task => !task.done),
-      completed: this.props.tasks.filter(task => task.done),
-      total: this.props.tasks.length
-    };
-    this.forceUpdate();
-  }
-
   render() {
     return (
       <div>
-        <button onClick={this.addTask}>Add Task</button>
         {this.state.active.map(task => <Active>{task.title}</Active>)}
         {this.state.completed.map(task => <Done>{task.title}</Done>)}
         <Total>Total tasks: {this.state.total}</Total>
@@ -50,25 +36,37 @@ class Tasks extends React.Component {
   }
 }
 
-function App() {
-  const someTasks = [
-    {title: "Wash dishes", done: false},
-    {title: "Read book", done: false},
-    {title: "Get some sleep", done: true}
-  ];
-  return <Tasks tasks={someTasks}/>;
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      tasks: []
+      tasks: [
+        {title: "Wash dishes", done: false},
+        {title: "Read book", done: false},
+        {title: "Get some sleep", done: true},
+      ]
     }
+    this.addTask = this.addTask.bind(this)
   }
   addTask = () => {
-    const newState = {}
-    this.set
+    console.log(this.state)
+    const defaultTask = {
+      title: 'new task', 
+      done: false
+    }
+    this.setState((state) => {
+      return {
+        tasks : state.tasks.concat(defaultTask)
+      }
+    })
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.addTask}>Add Task</button>
+        <Tasks tasks={this.state.tasks}/>
+      </div>
+    )
   }
 }
 const rootElement = document.getElementById("root");
